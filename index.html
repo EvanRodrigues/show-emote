@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Show Emote</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <link rel="stylesheet" href="app.css" />
+    </head>
+
+    <body>
+        <div class="emote_container">
+            <img id="emote" src="" />
+        </div>
+
+        <script src="chatbot.js"></script>
+        <script src="Emote.js"></script>
+        <script src="settings.js"></script>
+        <script>
+            window.chatClient = new chatClient({
+                channel: "#" + channel,
+                username: bot_name,
+                password: password,
+            });
+
+            window.chatClient.open();
+        </script>
+    </body>
+</html>
