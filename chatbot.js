@@ -1,7 +1,5 @@
 /*
- * TODO: Initialize bttv, ffz, global twitch emotes
- * Show emote on stream
- * display emote for x amount of seconds
+ * match smileys with regex?
  * place emote in a random spot when showing
  */
 
@@ -36,7 +34,6 @@ chatClient.prototype.startCooldown = function startCooldown() {
 
     setTimeout(() => {
         this.onCooldown = false;
-        console.log("COOLDOWN OVER");
     }, cooldown);
 };
 
@@ -58,14 +55,15 @@ chatClient.prototype.onMessage = function onMessage(message) {
             }
 
             if (parsed_message != null) {
+                combineEmotes();
+
                 if (parsed_message.startsWith("!showemote ")) {
                     if (this.onCooldown != true) {
-                        console.log("NOT ON COOLDOWN");
-                        showEmote();
-                        this.startCooldown();
-                    } else {
-                        console.log("ON COOLDOWN!");
-                        console.log(`message: ${parsed_message}`);
+                        const emote = matchEmote(getEmote(parsed_message));
+
+                        if (showEmote(emote)) {
+                            this.startCooldown();
+                        }
                     }
                 }
             }
