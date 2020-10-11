@@ -2,6 +2,7 @@
  * TODO: Initialize bttv, ffz, global twitch emotes
  * Show emote on stream
  * display emote for x amount of seconds
+ * place emote in a random spot when showing
  */
 
 var chatClient = function chatClient(options) {
@@ -60,6 +61,7 @@ chatClient.prototype.onMessage = function onMessage(message) {
                 if (parsed_message.startsWith("!showemote ")) {
                     if (this.onCooldown != true) {
                         console.log("NOT ON COOLDOWN");
+                        showEmote();
                         this.startCooldown();
                     } else {
                         console.log("ON COOLDOWN!");
