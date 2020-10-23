@@ -1,5 +1,4 @@
 /*
- * match smileys with regex?
  * place emote in a random spot when showing
  */
 

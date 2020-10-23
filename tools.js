@@ -47,6 +47,16 @@ function emoteRegex(code, expression) {
     return regex.test(code);
 }
 
+const removeEscape = (code) => {
+    if (code.indexOf("\\&gt\\;") != -1) {
+        code = code.replace("\\&gt\\;", ">");
+    } else if (code.indexOf("\\&lt\\;") != -1) {
+        code = code.replace("\\&lt\\;", "<");
+    }
+
+    return code;
+};
+
 function getTwitchEmotes(channelId) {
     const url = `https://api.twitchemotes.com/api/v4/channels/${channelId}`; //Credit to twitchemotes.com
 
@@ -57,7 +67,11 @@ function getTwitchEmotes(channelId) {
 
             if (channelId == 0) {
                 twitch_global = emotes.map(
-                    (e) => new Emote(e["code"], TwitchEmoteUrl(e["id"]))
+                    (e) =>
+                        new Emote(
+                            removeEscape(e["code"]),
+                            TwitchEmoteUrl(e["id"])
+                        )
                 );
             } else {
                 twitch_subscriber = emotes.map(
@@ -168,8 +182,12 @@ const showEmote = (emote) => {
 const matchEmote = (emoteCode) => {
     if (!emoteCode) return null;
 
-    const matchedEmote = all_emotes.filter((emote) => emote.code == emoteCode);
-    return matchedEmote.length === 0 ? null : matchedEmote[0].art;
+    for (let i = 0; i < all_emotes.length; i++) {
+        const regex = RegExp(all_emotes[i].code);
+        if (regex.test(emoteCode)) return all_emotes[i].art;
+    }
+
+    return null;
 };
 
 const getEmote = (message) => {
