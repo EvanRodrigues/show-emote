@@ -164,12 +164,24 @@ const combineEmotes = () => {
 };
 
 /*
+ * Places emote on a random spot on the screen.
+ */
+const placeEmote = () => {
+    const left = Math.random() * (1850 - 75) + 75;
+    const top = Math.random() * (1030 - 50) + 50;
+
+    $("#emote").css("top", `${top}px`);
+    $("#emote").css("left", `${left}px`);
+};
+
+/*
  * Shows the emote on the page
  */
 const showEmote = (emote) => {
     if (!emote) return false;
 
     $("#emote").attr("src", `https:${emote}`);
+    placeEmote();
     $("#emote").fadeIn(fade);
 
     setTimeout(() => {
@@ -181,6 +193,12 @@ const showEmote = (emote) => {
 
 const matchEmote = (emoteCode) => {
     if (!emoteCode) return null;
+
+    for (let i = 0; i < all_emotes.length; i++) {
+        if (emoteCode === all_emotes[i].code) {
+            return all_emotes[i].art;
+        }
+    }
 
     for (let i = 0; i < all_emotes.length; i++) {
         const regex = RegExp(all_emotes[i].code);
