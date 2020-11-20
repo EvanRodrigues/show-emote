@@ -195,9 +195,7 @@ const matchEmote = (emoteCode) => {
     if (!emoteCode) return null;
 
     for (let i = 0; i < all_emotes.length; i++) {
-        if (emoteCode === all_emotes[i].code) {
-            return all_emotes[i].art;
-        }
+        if (emoteCode === all_emotes[i].code) return all_emotes[i].art;
     }
 
     for (let i = 0; i < all_emotes.length; i++) {

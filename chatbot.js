@@ -60,7 +60,7 @@ chatClient.prototype.onMessage = function onMessage(message) {
                     if (this.onCooldown != true) {
                         const emote = matchEmote(getEmote(parsed_message));
 
-                        if (showEmote(emote)) {
+                        if (showEmote(emote) && emote !== null) {
                             this.startCooldown();
                         }
                     }
